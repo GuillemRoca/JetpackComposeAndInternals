@@ -44,17 +44,14 @@ import dev.jorgecastillo.compose.app.ui.theme.ComposeAndInternalsTheme
 fun SpeakersScreen(speakers: List<Speaker>) {
     Scaffold(
         topBar = {
-            TopAppBar {
-                Text(
-                    modifier = Modifier.padding(start = 16.dp),
-                    text = "Speakers",
-                    fontWeight = FontWeight.Bold
-                )
-            }
+            TopAppBar(title = { Text("Speakers") })
         },
         floatingActionButton = {
             FloatingActionButton(onClick = { /*TODO*/ }) {
-                Icon(imageVector = Icons.Filled.Add, contentDescription = "Add speaker")
+                Icon(
+                    imageVector = Icons.Filled.Add,
+                    contentDescription = stringResource(id = R.string.content_desc_fab_add_speaker)
+                )
             }
         }
     ) { paddingValues ->
@@ -76,7 +73,8 @@ fun SpeakerCard(speaker: Speaker, onClick: (Speaker) -> Unit = {}) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(dimensionResource(id = R.dimen.spacing_small))
+            .padding(dimensionResource(id = R.dimen.spacing_small)),
+        onClick = { onClick(speaker) }
     ) {
         Row(modifier = Modifier.padding(dimensionResource(id = R.dimen.spacing_regular))) {
             Image(
@@ -84,10 +82,13 @@ fun SpeakerCard(speaker: Speaker, onClick: (Speaker) -> Unit = {}) {
                     .size(dimensionResource(id = R.dimen.avatar_size))
                     .clip(CircleShape),
                 painter = painterResource(avatarResForId(speaker.id)),
-                contentDescription = "Speaker avatar",
+                contentDescription = stringResource(
+                    id = R.string.content_desc_speaker_avatar,
+                    speaker.name
+                ),
                 contentScale = ContentScale.Crop,
             )
-            Column(modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.spacing_regular))) {
+            Column(modifier = Modifier.padding(start = dimensionResource(id = R.dimen.spacing_regular))) {
                 Text(
                     text = speaker.name,
                     style = MaterialTheme.typography.h6
