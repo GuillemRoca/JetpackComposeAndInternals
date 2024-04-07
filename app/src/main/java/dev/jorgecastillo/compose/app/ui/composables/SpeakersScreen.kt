@@ -32,7 +32,9 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import dev.jorgecastillo.compose.app.R
 import dev.jorgecastillo.compose.app.data.FakeSpeakerRepository
 import dev.jorgecastillo.compose.app.models.Speaker
@@ -40,12 +42,63 @@ import dev.jorgecastillo.compose.app.ui.theme.ComposeAndInternalsTheme
 
 @Composable
 fun SpeakersScreen(speakers: List<Speaker>) {
-
+    Scaffold(
+        topBar = {
+            TopAppBar {
+                Text(
+                    modifier = Modifier.padding(start = 16.dp),
+                    text = "Speakers",
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        },
+        floatingActionButton = {
+            FloatingActionButton(onClick = { /*TODO*/ }) {
+                Icon(imageVector = Icons.Filled.Add, contentDescription = "Add speaker")
+            }
+        }
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier
+                .padding(paddingValues)
+                .verticalScroll(rememberScrollState())
+                .testTag("SpeakersList")
+        ) {
+            speakers.forEach { speaker ->
+                SpeakerCard(speaker)
+            }
+        }
+    }
 }
 
 @Composable
 fun SpeakerCard(speaker: Speaker, onClick: (Speaker) -> Unit = {}) {
-    
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(dimensionResource(id = R.dimen.spacing_small))
+    ) {
+        Row(modifier = Modifier.padding(dimensionResource(id = R.dimen.spacing_regular))) {
+            Image(
+                modifier = Modifier
+                    .size(dimensionResource(id = R.dimen.avatar_size))
+                    .clip(CircleShape),
+                painter = painterResource(avatarResForId(speaker.id)),
+                contentDescription = "Speaker avatar",
+                contentScale = ContentScale.Crop,
+            )
+            Column(modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.spacing_regular))) {
+                Text(
+                    text = speaker.name,
+                    style = MaterialTheme.typography.h6
+                )
+                Text(
+                    text = speaker.company,
+                    style = MaterialTheme.typography.caption
+                )
+            }
+        }
+    }
 }
 
 @SuppressLint("DiscouragedApi")
