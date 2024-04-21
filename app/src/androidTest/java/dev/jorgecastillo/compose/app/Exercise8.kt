@@ -99,7 +99,7 @@ class Exercise8 {
                         SideEffect { firstRecompositionCounter.increment() }
 
                         MyRow {
-                            Text("Text is [read the CompositionLocal value here]")
+                            Text("Text is : ${localTest1.current}")
                         }
                     }
 
@@ -133,7 +133,7 @@ class Exercise8 {
                         SideEffect { firstRecompositionCounter.increment() }
 
                         MyRow {
-                            Text("Text is [read the CompositionLocal value here]")
+                            Text("Text is ${localTest2.current}")
                         }
                     }
 
@@ -157,8 +157,8 @@ class Exercise8 {
     }
 }
 
-private val localTest1: ProvidableCompositionLocal<Int> = TODO()
-private val localTest2: ProvidableCompositionLocal<Int> = TODO()
+private val localTest1: ProvidableCompositionLocal<Int> = compositionLocalOf { 0 }
+private val localTest2: ProvidableCompositionLocal<Int> = staticCompositionLocalOf { 0 }
 
 val firstRecompositionCounter = RecompositionCounter()
 val secondRecompositionCounter = RecompositionCounter()
