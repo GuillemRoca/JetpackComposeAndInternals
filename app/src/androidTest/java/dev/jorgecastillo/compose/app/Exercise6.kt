@@ -44,7 +44,7 @@ fun Modifier.circledRainbowBorder(strokeWidth: Float): Modifier =
         drawCircle(
             brush = Brush.linearGradient(listOf(Color.Magenta, Color.Cyan)),
             radius = size.width / 2 - strokeWidth,
-            style = Stroke(strokeWidth),
+            style = Stroke(width = strokeWidth),
         )
     }
 
