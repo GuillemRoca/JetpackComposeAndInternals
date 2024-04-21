@@ -170,7 +170,8 @@ private fun AdaptativeScreen() {
     val friends = speakers.drop(1)
 
     BoxWithConstraints {
-        if (maxWidth >= 600.dp) {
+        val isTablet = maxWidth >= 600.dp
+        if (isTablet) {
             Row {
                 ProfileScreen(
                     speaker,
