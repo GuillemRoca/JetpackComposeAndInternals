@@ -16,6 +16,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.printToLog
+import androidx.compose.ui.unit.IntOffset
 import dev.jorgecastillo.compose.app.ui.theme.ComposeAndInternalsTheme
 import org.junit.Rule
 import org.junit.Test
@@ -151,19 +152,24 @@ fun Modifier.alignToCorner(corner: Corner) = layout { measurable, constraints ->
         // Where the composable gets placed
         when (corner) {
             Corner.TopLeft -> {
-
+                placeable.placeRelative(IntOffset(0, 0))
             }
 
             Corner.TopRight -> {
-
+                placeable.placeRelative(IntOffset(constraints.maxWidth - placeable.width, 0))
             }
 
             Corner.BottomLeft -> {
-
+                placeable.placeRelative(IntOffset(0, constraints.maxHeight - placeable.height))
             }
 
             Corner.BottomRight -> {
-
+                placeable.placeRelative(
+                    IntOffset(
+                        constraints.maxWidth - placeable.width,
+                        constraints.maxHeight - placeable.height
+                    )
+                )
             }
         }
     }
