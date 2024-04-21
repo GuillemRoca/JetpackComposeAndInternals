@@ -157,8 +157,8 @@ class Exercise8 {
     }
 }
 
-private val localTest1: ProvidableCompositionLocal<Int> = compositionLocalOf { 0 }
-private val localTest2: ProvidableCompositionLocal<Int> = staticCompositionLocalOf { 0 }
+private val localTest1: ProvidableCompositionLocal<Int> = compositionLocalOf { -1 }
+private val localTest2: ProvidableCompositionLocal<Int> = staticCompositionLocalOf { -1 }
 
 val firstRecompositionCounter = RecompositionCounter()
 val secondRecompositionCounter = RecompositionCounter()
