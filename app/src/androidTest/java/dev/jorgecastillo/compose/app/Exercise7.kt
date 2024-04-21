@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -168,7 +169,21 @@ private fun AdaptativeScreen() {
     val speaker = speakers.first()
     val friends = speakers.drop(1)
 
-    // Add your code here
+    BoxWithConstraints {
+        if (maxWidth >= 600.dp) {
+            Row {
+                ProfileScreen(
+                    speaker,
+                    Modifier
+                        .width(320.dp)
+                        .fillMaxHeight()
+                )
+                FriendsScreen(friends, Modifier.weight(1f))
+            }
+        } else {
+            ProfileScreen(speaker, Modifier.fillMaxSize())
+        }
+    }
 }
 
 @Composable
