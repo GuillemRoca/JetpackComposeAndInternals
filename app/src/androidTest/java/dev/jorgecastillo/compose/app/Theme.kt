@@ -16,17 +16,17 @@ private val DarkColors = darkColors(
     secondary = Teal200
 )
 
+private val LightColors = lightColors(
+    primary = Purple500,
+    primaryVariant = Purple700,
+    secondary = Teal200
+)
+
 private val DarkPinkColors = darkColors(
     primary = Pink200,
     primaryVariant = Pink700,
     secondary = Teal200,
     surface = Pink200
-)
-
-private val LightColors = lightColors(
-    primary = Purple500,
-    primaryVariant = Purple700,
-    secondary = Teal200
 )
 
 private val LightPinkColors = lightColors(
