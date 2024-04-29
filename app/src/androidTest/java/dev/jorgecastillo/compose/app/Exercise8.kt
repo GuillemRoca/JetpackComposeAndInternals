@@ -3,8 +3,10 @@
 
 package dev.jorgecastillo.compose.app
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
@@ -21,10 +23,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.unit.dp
 import dev.jorgecastillo.compose.app.ui.theme.ComposeAndInternalsTheme
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
@@ -128,12 +132,18 @@ class Exercise8 {
             ComposeAndInternalsTheme {
                 var value by remember { mutableStateOf(1) }
 
+                val modifier = Modifier.size(20.dp)
+
                 Column {
-                    CompositionLocalProvider(localTest2 provides value) {
+                    CompositionLocalProvider(
+                        localTest2 provides value,
+                        localTest3 provides modifier
+                    ) {
                         SideEffect { firstRecompositionCounter.increment() }
 
                         MyRow {
-                            Text("Text is ${localTest2.current}")
+                            Text(text = "Text is ${localTest2.current}",
+                                modifier = localTest3.current)
                         }
                     }
 
@@ -159,6 +169,7 @@ class Exercise8 {
 
 private val localTest1: ProvidableCompositionLocal<Int> = compositionLocalOf { -1 }
 private val localTest2: ProvidableCompositionLocal<Int> = staticCompositionLocalOf { -1 }
+private val localTest3: ProvidableCompositionLocal<Modifier> = compositionLocalOf { Modifier }
 
 val firstRecompositionCounter = RecompositionCounter()
 val secondRecompositionCounter = RecompositionCounter()
