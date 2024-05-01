@@ -1,5 +1,6 @@
 package dev.jorgecastillo.compose.app.viewmodel
 
+import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dev.jorgecastillo.compose.app.data.FakeSpeakerRepository
@@ -13,8 +14,11 @@ import kotlinx.coroutines.launch
 
 data class SpeakersState(
     val isLoading: Boolean = false,
-    val speakers: List<Speaker> = emptyList()
+    val speakers: Speakers = Speakers(emptyList())
 )
+
+@Immutable
+data class Speakers(val speakers: List<Speaker>)
 
 class SpeakersViewModel(
     private val repo: SpeakerRepository = FakeSpeakerRepository()
@@ -37,7 +41,7 @@ class SpeakersViewModel(
             _uiState.value = _uiState.value.copy(isLoading = true)
             val speakers = repo.getSpeakers()
             delay(2000)
-            _uiState.value = _uiState.value.copy(isLoading = false, speakers = speakers)
+            _uiState.value = _uiState.value.copy(isLoading = false, speakers = Speakers(speakers))
         }
     }
 }

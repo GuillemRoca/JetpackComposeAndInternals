@@ -27,6 +27,7 @@ import dev.jorgecastillo.compose.app.data.FakeSpeakerRepository
 import dev.jorgecastillo.compose.app.models.Speaker
 import dev.jorgecastillo.compose.app.recomposeHighlighter
 import dev.jorgecastillo.compose.app.ui.theme.ComposeAndInternalsTheme
+import dev.jorgecastillo.compose.app.viewmodel.Speakers
 import dev.jorgecastillo.compose.app.viewmodel.SpeakersViewModel
 
 @Composable
@@ -58,13 +59,13 @@ fun SpeakersRecompositionScreen() {
 }
 
 @Composable
-fun SpeakersRecompositionScreen(speakers: List<Speaker>) {
+fun SpeakersRecompositionScreen(speakers: Speakers) {
     Column(
         Modifier
             .verticalScroll(rememberScrollState())
             .testTag("SpeakersList")
     ) {
-        speakers.forEach { speaker ->
+        speakers.speakers.forEach { speaker ->
             SpeakerCard(speaker)
         }
     }
