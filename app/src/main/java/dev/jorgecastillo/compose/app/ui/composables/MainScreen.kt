@@ -22,17 +22,17 @@ fun MainScreen() {
         topBar = {
             TopAppBar(title = { Text("Speakers") })
         },
-    ) { paddingValues ->
+    ) { contentPadding ->
         val navController = rememberNavController()
         NavHost(
-            modifier = Modifier.padding(paddingValues),
+            modifier = Modifier.padding(contentPadding),
             navController = navController,
             startDestination = "speakers"
         ) {
             composable(("speakers")) {
                 SpeakerFeed() { speaker ->
                     navController.navigate("speaker/${speaker.id}") {
-                        popUpTo(navController.graph.findStartDestination().id)
+                        popUpTo("speakers")
                     }
                 }
             }
